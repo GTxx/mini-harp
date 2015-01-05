@@ -1,15 +1,9 @@
-var connect = require('connect');
+var connect = require('connect')
+  , serveStatic = require('serve-static');
 
-var createMiniHarp = function(){
+var createMiniHarp = function(path){
   var app = connect();
-  app.use(function(request, response, next){
-    console.log(request.url);
-    if (request.url == '/current-time') {
-      response.end((new Date()).toISOString());
-    } else {
-      next();
-    }
-  })
+  app.use(serveStatic(path));
   return app;
 
 }
