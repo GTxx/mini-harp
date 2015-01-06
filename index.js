@@ -4,8 +4,14 @@ var connect = require('connect')
 
 var createMiniHarp = function(path){
   var app = connect();
-  app.use(makeLess(path));
+  app.use(function(req, res, next){
+    if (req.url == '/'){
+      req.url = "/index.html";
+    }
+    next();
+  });
   app.use(makeJade(path));
+  app.use(makeLess(path));
   return app;
 
 }
