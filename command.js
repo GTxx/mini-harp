@@ -1,11 +1,12 @@
 var parseArgs = require('minimist')
-  , createMiniHarp = require('./index.js');
+  , createMiniHarp = require('./index.js')
+  , path = require('path');
 
 var command = function(){
   var args = parseArgs(process.argv.slice(2));
   var port = args.port || 4000;
-  var path = args.path || process.cwd();
-  var app = createMiniHarp(path);
+  var dir_path = args.path || path.join(process.cwd(), args._[0] || "");
+  var app = createMiniHarp(dir_path);
   console.log("Starting mini-harp on http://localhost:" + port);
   app.listen(port);
 }
